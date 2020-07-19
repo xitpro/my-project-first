@@ -1,0 +1,25 @@
+.containerbutton {
+    /* position: flex; */
+    display: inline-flex;
+    background: black;
+    margin: 1px 0;
+    width: 100%;
+    height: auto;
+}
+
+.button {
+    background: green;
+    display: inline-block;
+    margin: 5px 5px;
+    width: auto;
+    height: 25px;
+}
+
+.button:hover,
+    .button:active,
+    .button.active{
+        background-color: #8F5C2C;
+        border-bottom: 4px solid #40A43A;
+        color: white;
+        
+}

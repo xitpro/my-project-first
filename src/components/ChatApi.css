@@ -1,0 +1,114 @@
+.Chat {
+  text-align: center;
+}
+
+.Chat_logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Chat-logo {
+    animation: Chat-logo-spin infinite 20s linear;
+  }
+}
+
+.Chat_header {
+  display: inline;
+  background-color: #5472ad;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.media_player {
+  height: 5vh;
+  background-color: greenyellow;
+  align-items: right;
+}
+.Chat_body {
+  /* background-attachment: fixed; */
+  background-color: #54ad54;
+  min-height: 50vh;
+  display: block;
+}
+.h1 {
+  color: white
+}
+.Red {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  background-color: red;
+}
+.Green {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  background-color: green;
+}
+
+.non_active {
+  /* color: green; */
+  background-color: blueviolet;
+  opacity: none;
+}
+
+.active {
+  background-attachment: fixed;
+  background-color: #54ad54;
+  min-height: 50vh;
+  display: block;
+  opacity: 0.5;
+}
+
+.Chat_footer {
+  min-height: 50vh;
+  background-color: #09090e;
+}
+
+.buttonActive {
+  width: 100px;
+  color: white;
+  margin-bottom: 1vh;
+  background-color: transparent;
+}
+.buttonDeActive {
+  width: 100px;
+  background-color: red;
+  margin-bottom: 1vh;
+}
+#drag {
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  z-index: 9;
+  cursor: all-scroll;
+  color: #fff;
+  background-color: green;
+}
+
+.other {
+  width: 90%;
+  position: relative;
+  padding: 10px;
+  background-color: red;
+  color: #fff;
+  z-index: 0;
+  margin-top: 10px;
+}
+
+.Chat_link {
+  color: #61dafb;
+}
+@keyframes Chat-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,34 @@
+.box_container{
+    position: flex;
+    background: black;
+    margin: 1px 0;
+    width: 100%;
+    height: auto;
+}
+.box_1{
+    display: flex;
+    position: relative;
+    margin: 1px 0;
+    width: 100%;
+    height: 100px;
+    background-color: aqua;
+}
+.button_one {
+    background: green;
+    display: inline-block;
+    margin: 5px 5px;
+    width: auto;
+    height: 25px;
+}
+.box {
+    background: violet;
+    color: white;
+    /* width: 1200px; */
+    height: 50px;
+    border: solid 1px red;
+    margin: 1px;
+}
+
+.box_1 > button {
+    background-color: green;
+}

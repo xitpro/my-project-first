@@ -1,0 +1,29 @@
+.box_container{
+    /* background: green; */
+    /* display: flex; */
+    position: relative;
+    margin: 1px 0;
+    width: 1200px;
+    height: auto;
+}
+
+.containerfour {
+    /* background: green; */
+    display: flex;
+    margin: 1px 0;
+    width: 1200px;
+    height: auto;
+}
+.box {
+    background: violet;
+    display: inline-block;
+    color: white;
+    /* width: 1200px; */
+    height: 50px;
+    border: solid 1px red;
+    margin: 1px;
+}
+
+.box > button {
+    background-color: green;
+}
