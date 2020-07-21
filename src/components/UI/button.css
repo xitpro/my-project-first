@@ -7,17 +7,24 @@
     height: auto;
 }
 
-.button {
-    background: green;
+.Button {
+    background: rgb(3, 202, 3);
     display: inline-block;
     margin: 5px 5px;
     width: auto;
     height: 25px;
+    border-radius: 5px;
+}
+.Success {
+    color: #2c1092;
 }
 
-.button:hover,
-    .button:active,
-    .button.active{
+.Danger {
+    color: rgb(255, 0, 0);
+}
+.Button:hover,
+    .Button:active,
+    .Button.active{
         background-color: #8F5C2C;
         border-bottom: 4px solid #40A43A;
         color: white;

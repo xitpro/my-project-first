@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./MigrationBox.css";
 import * as constants from "./constants";
 import Button from "./UI/Button";
+// import { func } from "prop-types";
 var xml2js = require("xml2js");
 // const _dirname = 'C:\\ProgramData\\Razer\\Razer Central\\Accounts\\RZR_0280070540119463a0a7bff12753\\Emily3\\Devices'
 // const PID = [2594,2595]
@@ -26,15 +27,27 @@ class Migration extends Component {
     super();
     this.text = window.location;
     this.result = "";
+    this.dataResponse = [];
     this.state = {
       isChanged: false,
+      value: '',
     };
     // this.titleRef = React.createRef();
+    this.inputDom = React.createRef();
   }
 
   componentDidMount() {
     this.text = this.text.toString();
+    // var input = document.getElementById("inputSearch");
+    // input.addEventListener("keyup", function (e) {
+    //   if (e.keyCode === 13) {
+    //     e.preventDefault();
+    //     console.log(e.target)
+
+    //   }
+    // });
   }
+  componentDidUpdate(prevProps) {}
   converterOne = () => {
     // var parsessr = new xml2js.Parser();
     // let json= parsessr.parseString(xml1, function (err, result) {
@@ -48,7 +61,7 @@ class Migration extends Component {
       // `result` is a JavaScript object
       // convert it to a JSON string
       const json = JSON.stringify(result.Profile);
-      let titleRef = document.getElementById("title");
+      let titleRef = document.getElementById("box-1");
       titleRef.innerText = json;
       console.log("xxxxx \n", json);
       // log JSON string
@@ -76,18 +89,18 @@ class Migration extends Component {
   // });
   // }
   getText = () => {
-    let abc = document.getElementById("fName");
+    let abc = document.getElementById("inputData");
     if (abc === null) return;
     this.checkDataType(abc.value);
     // console.log(abc.value)
   };
   clearText = () => {
-    let abc = document.getElementById("fName");
-    abc.value = ''
-    this.setState({isChanged: false})
-  }
+    let abc = document.getElementById("inputData");
+    abc.value = "";
+    this.setState({ isChanged: false });
+  };
   fetchDataFromApi = () => {
-    // const data = { userId: 1 };
+    console.log(new Date().getMilliseconds());
     fetch("http://jsonplaceholder.typicode.com/posts", {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -102,11 +115,14 @@ class Migration extends Component {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        this.checkDataType(data)
+        this.dataResponse = data;
+        console.log(new Date().getMilliseconds());
+        this.checkDataType(this.dataResponse);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    console.log(new Date().getMilliseconds());
   };
 
   checkDataType = (data) => {
@@ -118,42 +134,45 @@ class Migration extends Component {
     // false
     // if(typeof )
     let checked = {};
-    if(typeof data === 'string') {
-      checked = "string"
+    if (typeof data === "string") {
+      checked = "string";
     }
-    if(typeof data === 'object') {
-      checked = "object"
+    if (typeof data === "object") {
+      checked = "object";
     }
-    if(Array.isArray(data)) {
-      console.log("this a array")
-      checked = "array"
+    if (Array.isArray(data)) {
+      console.log("this a array");
+      checked = "array";
     }
-    console.log(checked)
+    console.log(checked);
     switch (checked) {
-
       case "array":
-        this._proceedingArray(data)
+        this._proceedingArray(data);
         break;
       case "object":
-        this._proceedingObject(data)
+        this._proceedingObject(data);
         break;
       case "string":
-        this._proceedingString(data)
+        this._proceedingString(data);
         break;
 
       default:
         break;
-
     }
   };
 
-  _proceedingArray = (array) => {
-    console.log("Proceeding array here.....")
-  }
+  _proceedingArray = (dataResponse) => {
+    console.log("filer UserID");
+    let filterObject = dataResponse.filter((obj) => obj.userId === 2);
+    this.result = filterObject[0].title;
+    this.setState({ isChanged: true });
+    console.log("Proceeding array here.....", filterObject);
+  };
 
   _proceedingObject = (object) => {
-    console.log("Proceeding object here.....")
-  }
+    console.log("Proceeding object here.....");
+  };
+
   _proceedingString = (string) => {
     if (string === "") {
       this.result = "null String";
@@ -165,23 +184,110 @@ class Migration extends Component {
         this.result = "String input: \n" + string;
       }
     }
-    this.setState({isChanged: true})
+    this.setState({ isChanged: true });
+  };
+  handleChange = e => {
+    // alert()
+    var v = e.target.value;
+    this.setState({ value: v });
+  };
+  handleBlur = (e) => {
+    var v = e.target.value;
+    if (e.target.value === "") return;
+    this.handleSearch(v);
+  };
+  handleKeyDown = (e) => {
+    // fire blur event when Enter or ESC
+    if (e.keyCode === 13) {
+      this.inputDom.current.blur();
+    }
+    if (e.keyCode === 27) {
+      this.handleSearch(this.state.value);
+    }
+  };
+  handleSearch = (userId) => {
+    alert("UserId search have title...   " + userId);
+  };
+
+  validate(e) {
+    var theEvent = e || window.event;
+    console.log(theEvent.type)
+    // Handle paste
+    if (e.type === "paste") {
+      key = e.clipboardData.getData("text/plain");
+      alert('Dont try pass something here ' + key)
+    } else {
+      // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+      alert('Dont try enter character '+ key)
+    }
+    
+    var regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) theEvent.preventDefault();
+    }
   }
   render() {
     return (
       <React.Fragment>
         <div className={styles.box_container}>
-          <Button className={styles.button_one} onClick={this.converterOne} name="XML2JS"/>
-          <Button className={styles.button_one} onClick={this.convertManually} name="Parser"/>
-          <Button className={styles.button_one} onClick={this.fetchDataFromApi} name="Fetch Data"/>
+          <Button btnType="Danger" clicked={this.converterOne} name="XML2JS" />
+          <Button
+            btnType="Success"
+            clicked={this.convertManually}
+            name="Parser"
+          />
+          <Button
+            btnType="Success"
+            clicked={this.fetchDataFromApi}
+            name="Fetch Data"
+          />
+          <input
+            ref={this.inputDom}
+            id="inputSearch"
+            type="text"
+            placeholder="Go Search"
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeyDown}
+            onKeyPress={this.validate}
+            onPaste={this.validate}
+            style={{
+              height: "25px",
+              borderRadius: "3px",
+              fontWeight: "bold",
+              width: "50%",
+            }}
+          ></input>
         </div>
-        <div id="title" className={styles.box_1} ref={this.titleRef}>
-          <input id="fName" type="text" placeholder="Input Text Here"></input>
-          <button onClick={this.clearText}>Clear</button>
-          <button onClick={this.getText}>Ok</button>
-          <span id="result" style={{margin: "30px 20px"}} text={this.result}>{this.state.isChanged ? this.result : `${constants.TEXT_RESULTS}`}</span>
+        <div id="box-1" className={styles.box_1} ref={this.titleRef}>
+          <div>
+            <input
+              id="inputData"
+              type="text"
+              placeholder="Input Text Here"
+              style={{
+                height: "50px",
+                borderRadius: "3px",
+                fontWeight: "bold",
+              }}
+            ></input>
+            <span
+              id="result"
+              style={{
+                margin: "10px 20px",
+                font: "italic small-caps bold 12px/30px Georgia, serif",
+                // style
+              }}
+            >
+              {this.state.isChanged ? this.result : `${constants.TEXT_RESULTS}`}
+            </span>
+          </div>
+          <Button clicked={this.clearText} name="Clear" />
+          <Button clicked={this.getText} name="Proceed" />
         </div>
-
       </React.Fragment>
     );
   }
