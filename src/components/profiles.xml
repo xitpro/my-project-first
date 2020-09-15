@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<LightingEffects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Mode>basic</Mode>
+  <Effect>spectrum</Effect>
+  <Devices>
+    <Device>
+      <Name>Razer Naga Trinity</Name>
+      <Product_ID>103</Product_ID>
+      <Vendor_ID>5426</Vendor_ID>
+      <Serial_Number>ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ</Serial_Number>
+      <Handle>59816522</Handle>
+      <Type>1</Type>
+    </Device>
+  </Devices>
+  <Colors />
+  <RandomColor>false</RandomColor>
+  <DeviceLayout>
+    <DevPositions />
+  </DeviceLayout>
+  <EffectLayers />
+  <Guid>00000000-0000-0000-0000-000000000000</Guid>
+  <Version>3</Version>
+  <LedBoxList />
+  <Speed>0</Speed>
+  <Width>0</Width>
+  <Device>
+    <Name>Razer Naga Trinity</Name>
+    <Product_ID>103</Product_ID>
+    <Vendor_ID>5426</Vendor_ID>
+    <Serial_Number>ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ</Serial_Number>
+    <Handle>59816522</Handle>
+    <Type>1</Type>
+  </Device>
+</LightingEffects>
