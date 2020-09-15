@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import styles from "./MigrationBox.css";
 import * as constants from "./constants";
 import Button from "./UI/Button";
-
+const fs = require("fs");
+const path = require("path");
 // import { func } from "prop-types";
 var xml2js = require("xml2js");
-const _dirname = 'C:\\ProgramData\\Razer\Razer Central\Accounts\\RZR_0280070540119463a0a7bff12753\\Emily3\\Devices'
+const _dirname =
+  "C:\\ProgramData\\RazerRazer CentralAccounts\\RZR_0280070540119463a0a7bff12753\\Emily3\\Devices";
 const xml1 = `<?xml version="1.0"?>
 <Profile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>PC-CHIVO-Default</Name>
@@ -30,8 +32,8 @@ class Migration extends Component {
     this.dataResponse = [];
     this.state = {
       isChanged: false,
-      value: '',
-      data: null
+      value: "",
+      data: null,
     };
     this.titleRef = React.createRef();
     this.inputDom = React.createRef();
@@ -88,20 +90,65 @@ class Migration extends Component {
     //           resolve(filenames);
     //   });
     // });
-    let xmlContent = '';
-    fetch('profiles.xml').then((response) => {
-      
+    let xmlContent = "";
+    fetch("profiles.xml").then((response) => {
       response.text().then((xml) => {
-        console.log('xxxx ' , xml)  
+        console.log("xxxx ", xml);
         let parser = new DOMParser();
-        let xmlDom = parser.parseFromString(xml, 'application/xml');
-        let datas = xmlDom.querySelectorAll('Devices')
-        console.log('xxxx ' , xmlDom)
-        console.log('xxxx ' , datas)
-      })
-    })
-  }
+        let xmlDom = parser.parseFromString(xml, "application/xml");
+        let datas = xmlDom.querySelectorAll("Devices");
+        console.log("xxxx ", xmlDom);
+        console.log("xxxx ", datas);
+      });
+    });
+  };
+  /**
+   * Promise all
+   * @author Loreto Parisi (loretoparisi at gmail dot com)
+   */
+  promiseAllP(items, block) {
+    var promises = [];
+    items.forEach(function (item, index) {
+      promises.push(
+        (function (item, i) {
+          return new Promise(function (resolve, reject) {
+            return block.apply(this, [item, index, resolve, reject]);
+          });
+        })(item, index)
+      );
+    });
+    return Promise.all(promises);
+  } //promiseAll
 
+  /**
+   * read files
+   * @param dirname string
+   * @return Promise
+   * @author Loreto Parisi (loretoparisi at gmail dot com)
+   * @see http://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
+   */
+  readFiles(dirname) {
+    return new Promise((resolve, reject) => {
+      fs.readdir(dirname, function (err, filenames) {
+        if (err) return reject(err);
+        this.promiseAllP(filenames, (filename, index, resolve, reject) => {
+          fs.readFile(path.resolve(dirname, filename), "utf-8", function (
+            err,
+            content
+          ) {
+            if (err) return reject(err);
+            return resolve({ filename: filename, contents: content });
+          });
+        })
+          .then((results) => {
+            return resolve(results);
+          })
+          .catch((error) => {
+            return reject(error);
+          });
+      });
+    });
+  }
   fetchDataFromApi = () => {
     console.log(new Date().getMilliseconds());
     fetch("http://jsonplaceholder.typicode.com/posts", {
@@ -142,11 +189,7 @@ class Migration extends Component {
             clicked={this.fetchDataFromApi}
             name="Fetch Data"
           />
-          <Button
-            btnType="Danger"
-            clicked={this.readDirName}
-            name="Read File"
-          />
+          <Button btnType="Danger" clicked={this.readFiles} name="Read File" />
         </div>
         <div id="box-1" className={styles.box_1} ref={this.titleRef}></div>
       </React.Fragment>

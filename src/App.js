@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 // import ChatApi from "./components/ChatApi";
 // import BoxOrder from "./components/BoxOrder";
-// import Migration from "./components/MigrationData";
+import Migration from "./components/MigrationData";
 import Navigations from "./components/UI/Navigations/Navigations";
 class App extends Component {
   state = {}
@@ -18,15 +18,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-				{/* <ErrorBoundary>
-					<Authenticated renderView={this.renderView} />
-					<Initializations />
-				</ErrorBoundary> */}
-      <Navigations/>
+        <Migration/>
+      {/* <Navigations/> */}
 			</Provider>
-      // <Migration/>
-      // <Ahihi/>
-      //   <ChatApi />
     );
   }
 }
