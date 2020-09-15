@@ -1,0 +1,218 @@
+$green: #44d62c;
+$green-secondary: #3cbf27;
+
+$blue: #28aadc;
+$blue-secondary: #2196c4;
+
+$green-alpha: rgba(68, 214, 44, 0.3);
+$blue-alpha: rgba(40, 170, 220, 0.3);
+
+$main-color: $green;
+$main-alpha: $green-alpha;
+$secondary-color: $green-secondary;
+
+div.main_container{
+    min-width: 1024px;
+    // min-height: 720px;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    // display: flex;
+    // flex-direction: column;
+}
+div.nav_tabs {
+	width: 100%;
+	background-color: $main-color;
+	position: relative;
+	min-height: 28px;
+	display: flex;
+}
+a.nav {
+	text-decoration: none;
+}
+.button {
+	border-radius: 4px;
+	border: 1px solid green;
+}
+.nav_item {
+	background-color: $blue;
+	justify-content: center;
+	display: flex;
+	width: 150px;
+	size: 25px;
+	margin-left: 15px;
+	border: 1px solid red;
+}
+div.active_view {
+	width: 100%;
+	background-color: #fff;
+	position: absolute;
+	
+}
+div.item {
+	width: 320px;
+	height: 480px;
+	background-color: green;
+	border-radius: 8px;
+	margin: 5px;
+	display: inline-block;
+	text-align: center;
+}
+.nav-tabs .nav {
+	height: 100%;
+	flex: 0 0 auto;
+	background-repeat: no-repeat;
+	padding: 16px 20px;
+	text-align: center;
+	font-family: 'RazerF5';
+	font-weight: 400;
+	text-transform: uppercase;
+	font-size: 21px;
+	line-height: 16px;
+	color: rgba(0, 0, 0, 0.3);
+
+	will-change: background-color, color;
+	transition: background-color 0.3s, color, 0.1s;
+}
+.nav.active {
+	color: #111;
+}
+.nav-tabs .arrow {
+	background-position: center;
+	width: 40px;
+	height: 48px;
+	max-width: 40px;
+	padding: 0;
+	background-size: 9px 18px;
+}
+.nav-tabs .nav:hover {
+	background-color: $secondary-color;
+}
+.nav-tabs .nav:active {
+	color: #111;
+	background-color: $secondary-color;
+}
+.nav.disabled {
+	opacity: 0.3;
+	pointer-events: none;
+}
+.nav-tabs .user.disabled:hover,
+.nav.disabled:hover {
+	cursor: default;
+	background-color: transparent;
+}
+.nav.back {
+	background-image: url('./../img_ui/nav_back_arrow.svg');
+}
+.nav.forward {
+	background-image: url('./../img_ui/nav_fwd_arrow.svg');
+}
+.nav-tabs .right {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.right {
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
+	padding-right: 10px;
+	justify-content: flex-end;
+}
+.nav-tabs .user.trial {
+	z-index: 99;
+	background-color: $main-color;
+	width: 60px;
+	height: 48px;
+	right: 60px;
+
+	will-change: background-color;
+	transition: background-color 0.3s;
+}
+.trial .countdown {
+	height: 32px;
+	width: 32px;
+	border-radius: 16px;
+	background-color: #c8323c;
+	font-size: 14px;
+	color: #fff;
+	text-align: center;
+	line-height: 17px;
+	padding: 8px 0 7px 0;
+	visibility: visible;
+	opacity: 1;
+	position: absolute;
+	min-height: 32px;
+	top: 8px;
+	right: 15px;
+
+	will-change: width, min-height, background-color, border, border-radius,
+		padding, top, right;
+
+	transition: top 0.3s, right 0.3s, width 0.3s ease, min-height 0.3s ease,
+		padding 0.3s ease, background-color 0.3s, border 0.1s,
+		border-radius 0.3s linear;
+}
+.nav-tabs .user:active .countdown {
+	background-color: #8b2229;
+	color: #b1b1b1;
+}
+.nav-tabs .user .countdown:active {
+	background-color: #8b2229;
+	color: #b1b1b1;
+}
+.pic .avatar {
+	margin: 8px 15px;
+	height: 32px;
+	width: 32px;
+	background-color: #ddd;
+	border-radius: 16px;
+}
+.user.trial .countdown.show {
+	position: absolute;
+	width: 264px;
+	height: auto;
+	min-height: 104px;
+	background-color: #111111;
+	border: 1px solid $main-color;
+	border-radius: 5px;
+	padding: 8px 30px 20px 30px;
+	z-index: 100;
+	max-width: unset;
+	top: 58px;
+	right: -50px;
+}
+.user.trial .countdown::before {
+	opacity: 1;
+	visibility: visible;
+	content: '17';
+	position: relative;
+
+	will-change: visibility, opacity;
+
+	transition: top 0.3s, visibility 0.3s, opacity 0s linear;
+}
+.user.trial .countdown.show::before {
+	opacity: 0;
+	visibility: hidden;
+}
+.user.trial .countdown .body {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+	top: 20px;
+	right: -63px;
+	width: 262px;
+	text-align: center;
+
+	will-change: visibility, opacity;
+	transition-delay: 0.1s;
+
+	transition: visibility 0s, opacity 0.5s linear, right 0.3s;
+}
+.user.trial .countdown.show .body {
+	visibility: visible;
+	opacity: 1;
+	right: 0;
+}

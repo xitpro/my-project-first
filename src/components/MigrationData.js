@@ -30,7 +30,7 @@ class Migration extends Component {
     this.dataResponse = [];
     this.state = {
       isChanged: false,
-      value: '',
+      value: "",
     };
     // this.titleRef = React.createRef();
     this.inputDom = React.createRef();
@@ -186,43 +186,70 @@ class Migration extends Component {
     }
     this.setState({ isChanged: true });
   };
-  handleChange = e => {
+  handleChange = (e) => {
     // alert()
-    var v = e.target.value;
+    let v = e.target.value;
     this.setState({ value: v });
   };
   handleBlur = (e) => {
-    var v = e.target.value;
-    if (e.target.value === "") return;
+    console.log("blur", e.target.value);
+    let v = e.target.value;
+    if (v === "") return;
     this.handleSearch(v);
   };
   handleKeyDown = (e) => {
     // fire blur event when Enter or ESC
     if (e.keyCode === 13) {
+      console.log("13");
       this.inputDom.current.blur();
     }
     if (e.keyCode === 27) {
-      this.handleSearch(this.state.value);
+      console.log("27");
+      this.inputDom.current.blur();
     }
   };
-  handleSearch = (userId) => {
-    alert("UserId search have title...   " + userId);
+  handleSearch = (Id) => {
+    console.log("this data respone", this.dataResponse, Id);
+    if (this.dataResponse.length === 0) {
+      //Return get data
+      return false;
+    }
+    else {
+      let foundValue = this.dataResponse.filter((obj, i) => {
+        if (obj.userId === parseInt(Id)) {
+          this.dataResponse[i] = {
+            userId: 1,
+            id: 1,
+            title: "vo thanh chi",
+            body:"dominating",
+          };
+          return true;
+        }
+        else return false;
+      });
+      this.result = this.dataResponse[Id].title;
+      this.setState({ isChanged: true });
+     console.log("filter ID foundValue", foundValue);
+     console.log("filter ID dataResponse returned",this.dataResponse );
+    }
+
   };
 
   validate(e) {
     var theEvent = e || window.event;
-    console.log(theEvent.type)
+    console.log(theEvent.type);
     // Handle paste
+    let key;
     if (e.type === "paste") {
       key = e.clipboardData.getData("text/plain");
-      alert('Dont try pass something here ' + key)
+      // alert('Dont try pass something here ' + key)
     } else {
       // Handle key press
-      var key = theEvent.keyCode || theEvent.which;
+      key = theEvent.keyCode || theEvent.which;
       key = String.fromCharCode(key);
-      alert('Dont try enter character '+ key)
+      // alert('Dont try enter character '+ key)
     }
-    
+
     var regex = /[0-9]|\./;
     if (!regex.test(key)) {
       theEvent.returnValue = false;
